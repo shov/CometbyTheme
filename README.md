@@ -8,13 +8,14 @@ The class kit for fast modify Wordpress Themes
 ###Including example
 In the *functions.php* just require *cometby.php*
 
-`
+```php
 require_once(get_template_directory() . '/cometby/cometby.php');
-`
+```
 
 Than you can configure something
 
-`use CometbyTheme\Theme;
+```php
+use CometbyTheme\Theme;
  /* Theme config */
  
  Theme::getPlacement()->setPlacePropConf([
@@ -86,4 +87,5 @@ Than you can configure something
              ],
          ],
      ],
- ]);`
+ ]);
+ ```
