@@ -14,8 +14,7 @@ require_once(get_template_directory() . '/cometby/cometby.php');
 
 Than you can configure something
 
-` 
- use CometbyTheme\Theme;
+`use CometbyTheme\Theme;
  /* Theme config */
  
  Theme::getPlacement()->setPlacePropConf([
@@ -87,5 +86,4 @@ Than you can configure something
              ],
          ],
      ],
- ]);
- `
+ ]);`
