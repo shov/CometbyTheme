@@ -28,3 +28,11 @@ spl_autoload_register(function ($name) {
 
     if (is_readable($fullPath)) require $fullPath;
 }, true, true);
+
+/**
+ * Composer
+ */
+$composerAutoloaderPath = __DIR__ . '/inc/Composer/vendor/autoload.php';
+if(is_readable($composerAutoloaderPath)) {
+    require_once($composerAutoloaderPath);
+}

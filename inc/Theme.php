@@ -12,12 +12,14 @@
 namespace CometbyTheme;
 
 use CometbyTheme\Core\AdminConf;
-use CometbyTheme\Core\ResourcesLoad;
+use CometbyTheme\Core\ResourcesLoader;
+use CometbyTheme\Core\Template;
 use CometbyTheme\Core\WidgetController;
 use CometbyTheme\Core\ThemeFormater;
 use CometbyTheme\Core\ThemePlacement;
 use CometbyTheme\Core\ThemeCustomizer;
 use CometbyTheme\Core\ThemeAjaxHandler;
+use Mustache_Engine;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -50,34 +52,43 @@ final class Theme implements ThemeInterface
     {
     }
 
-    const PREFIX = "miskoby_";
+    const PREFIX = "macho_";
     const ROOT = __DIR__;
     private $themeFormater;
     private $themePlacement;
     private $themeAjaxHandler;
     private $themeCustomizer;
+    private $resourcesLoader;
+
+    /**
+     * @var Template $template
+     */
+    private $template;
 
     /**
      * Theme constructor.
      */
     private function __construct()
     {
+        @date_default_timezone_set("Europe/Minsk");
+
         AdminConf::init();
-        ResourcesLoad::init();
         WidgetController::init();
+        $this->template = Template::getInstance();
         $this->themeFormater = ThemeFormater::getInstance();
         $this->themePlacement = ThemePlacement::getInstance();
         $this->themeCustomizer = ThemeCustomizer::getInstance();
         $this->themeAjaxHandler = ThemeAjaxHandler::getInstance(['prefix' => self::PREFIX,]);
+        $this->resourcesLoader = ResourcesLoader::getInstance();
         $this->makeThemeSetup();
     }
 
     /**
-     *
+     *  Some custom config
      */
     private function makeThemeSetup()
     {
-        add_theme_support('post-thumbnails');
+        //add_theme_support('post-thumbnails');
     }
 
     /**
@@ -118,5 +129,25 @@ final class Theme implements ThemeInterface
     {
         self::init();
         return self::$_inst->themeAjaxHandler;
+    }
+
+    /**
+     * Provide access to Template
+     * @return Template
+     */
+    public static function getTemplate()
+    {
+        static::init();
+        return static::$_inst->template;
+    }
+
+    /**
+     * Provide access to ResourcesLoader
+     * @return ResourcesLoader
+     */
+    public static function getResourcesLoader()
+    {
+        static::init();
+        return static::$_inst->resourcesLoader;
     }
 }
